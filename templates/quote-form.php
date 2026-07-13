@@ -17,20 +17,7 @@ if (! defined('ABSPATH')) {
 
 <div class="ttq-wizard" id="ttq-wizard" data-step="1">
 
-	<!-- ============================================================
-	     TOP PROGRESS BAR (new) — sits above everything else.
-	     Nothing below this was changed.
-	     ============================================================ -->
-	<div class="ttq-topprogress">
 
-		<div class="ttq-topprogress__bar">
-			<div class="ttq-topprogress__track">
-				<div class="ttq-topprogress__fill ttq-js-progress-fill" style="width:33%"></div>
-			</div>
-			<span
-				class="ttq-topprogress__label ttq-js-progress-label"><?php esc_html_e('33% COMPLETED', 'ttq'); ?></span>
-		</div>
-	</div>
 
 	<div class="ttq-shell">
 
@@ -141,6 +128,8 @@ if (! defined('ABSPATH')) {
 					<?php esc_html_e('Trusted by 500+ Health Departments, Parks, Schools & Outdoor Organizations', 'ttq'); ?>
 				</p>
 
+
+
 				<!-- 100% Completed badge — shown only on review step -->
 				<span class="ttq-topbar__completed ttq-js-completed-badge" hidden>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -151,6 +140,21 @@ if (! defined('ABSPATH')) {
 					<?php esc_html_e('100% Completed', 'ttq'); ?>
 				</span>
 			</header>
+
+			<!-- ============================================================
+	     TOP PROGRESS BAR — sits above everything else.
+	     Nothing below this was changed.
+	     ============================================================ -->
+			<div class="ttq-topprogress">
+
+				<div class="ttq-topprogress__bar">
+					<div class="ttq-topprogress__track">
+						<div class="ttq-topprogress__fill ttq-js-progress-fill" style="width:0%"></div>
+					</div>
+					<span
+						class="ttq-topprogress__label ttq-js-progress-label"><?php esc_html_e('0% COMPLETED', 'ttq'); ?></span>
+				</div>
+			</div>
 
 			<!-- All four panels -->
 			<form id="ttq-form" novalidate>
@@ -181,7 +185,7 @@ if (! defined('ABSPATH')) {
 </div><!-- .ttq-wizard -->
 
 <style>
-	/* New: top progress bar only — nothing else touched. */
+	/* Top progress bar */
 	.ttq-topprogress {
 		display: flex;
 		align-items: center;
@@ -197,7 +201,6 @@ if (! defined('ABSPATH')) {
 		width: 26px;
 		height: 26px;
 		border-radius: 50%;
-		border: none;
 		background: transparent;
 		color: #d5314a;
 		cursor: pointer;
@@ -256,7 +259,15 @@ if (! defined('ABSPATH')) {
 
 		function render() {
 			var step = currentStep();
-			var pct = Math.round((Math.min(step, TOTAL_STEPS) / TOTAL_STEPS) * 100);
+
+			// Percentage reflects steps COMPLETED so far (step - 1),
+			// so Step 1 itself shows 0% and only moves once you leave it.
+			//   Step 1 (current)        -> 0%
+			//   Step 1 done, on Step 2  -> 33%
+			//   Step 2 done, on Step 3  -> 66%
+			//   Step 3 done / Review    -> 100%
+			var completed = Math.max(0, Math.min(step - 1, TOTAL_STEPS));
+			var pct = Math.round((completed / TOTAL_STEPS) * 100);
 
 			if (fillEl) fillEl.style.width = pct + '%';
 			if (labelEl) labelEl.textContent = pct + '% COMPLETED';
