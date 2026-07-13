@@ -239,7 +239,74 @@
   transform: translateX(-50%);
   opacity: 0.35;
 }
+/* Responsive Fix for All Devices */
 
+/* Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .ttq-shell {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .ttq-rail {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--ttq-radius) var(--ttq-radius) 0 0;
+  }
+
+  .ttq-rail__icon-main,
+  .ttq-rail__bug {
+    display: none;
+  }
+
+  .ttq-rail__stepof {
+    margin: 0;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .ttq-rail__stepof-num {
+    font-size: 20px;
+  }
+
+  .ttq-rail__dots {
+    flex-direction: row;
+    margin-top: 0;
+    gap: 15px;
+  }
+
+  .ttq-rail__dots::before {
+    display: none;
+  }
+}
+
+/* Tablet Devices (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ttq-rail {
+    flex: 0 0 80px;
+    padding: 40px 0 20px;
+  }
+
+  .ttq-rail__stepof-num {
+    font-size: 36px;
+  }
+
+  .ttq-rail__dots {
+    gap: 40px;
+  }
+}
+
+/* Desktop/Large Devices (1025px and up) */
+@media (min-width: 1025px) {
+  .ttq-shell {
+    flex-direction: row;
+  }
+}
 /* ================================================================
    CONTENT AREA
    ================================================================ */
@@ -255,7 +322,6 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 16px 24px;
-  margin-bottom: 28px;
 }
 
 .ttq-topbar__title {
@@ -370,9 +436,10 @@
   background: var(--ttq-gray-100);
   border-radius: 999px;
   padding: 8px 14px;
-  font-size: 11px;
-  color: var(--ttq-gray-600);
-  max-width: 260px;
+  font-size: 13px;
+  color: rgb(68, 68, 68);
+  max-width: 315px;
+  font-weight: 500;
   text-align: left;
   margin: 0;
 }
@@ -408,19 +475,22 @@
    STEP HEAD / GENERIC FIELDS
    ================================================================ */
 .ttq-step-head {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .ttq-step-head h3 {
-  font-size: 18px;
+  font-size: 26px;
   font-weight: 800;
   margin: 0 0 6px;
+  text-align: center;
 }
 
 .ttq-sub {
   color: var(--ttq-gray-600);
   margin: 0;
   font-size: 14px;
+  text-align: center;
 }
 
 .ttq-field-group {
@@ -562,7 +632,7 @@
 }
 .ttq-product-card .ttq-product-card__media img {
   height: 300px;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
