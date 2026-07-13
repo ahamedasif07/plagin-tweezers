@@ -135,6 +135,7 @@ class TTQ_Ajax {
 			'product'       => $step1['data']['product'],
 			'quantity'      => $step2['data']['quantity'],
 			'colors'        => $step2['data']['colors'],
+			'custom_color'  => isset( $step2['data']['custom_color'] ) ? $step2['data']['custom_color'] : '',
 			'sizes'         => $step2['data']['sizes'],
 			'side1'         => $step2['data']['side1'],
 			'side2'         => $step2['data']['side2'],

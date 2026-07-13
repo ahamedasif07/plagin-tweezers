@@ -17,7 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr><td style="padding:24px;">
 			<h2 style="font-size:16px;color:#b71c2b;">Product</h2>
 			<p><?php echo esc_html( $product_label ); ?> &mdash; Qty: <?php echo esc_html( $submission['quantity'] ); ?></p>
-			<p>Colors: <?php echo esc_html( implode( ', ', $submission['colors'] ) ); ?><br/>
+			<p>Colors: <?php 
+				$display_colors = $submission['colors'];
+				if ( ! empty( $submission['custom_color'] ) ) {
+					$display_colors[] = $submission['custom_color'] . ' (Custom)';
+				}
+				echo esc_html( implode( ', ', $display_colors ) ); 
+			?><br/>
 			Sizes: <?php echo esc_html( implode( ', ', $submission['sizes'] ) ); ?></p>
 			<p>Side 1: <?php echo esc_html( $submission['side1'] ); ?><br/>
 			Side 2: <?php echo esc_html( $submission['side2'] ); ?></p>

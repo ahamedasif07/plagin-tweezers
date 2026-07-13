@@ -116,7 +116,7 @@ class TTQ_Admin {
 				update_post_meta( $post_id, '_ttq_best_for', $prod['best_for'] );
 				update_post_meta( $post_id, '_ttq_featured', $prod['featured'] );
 				update_post_meta( $post_id, '_ttq_features', $prod['features'] );
-				update_post_meta( $post_id, '_ttq_colors', isset( $prod['colors'] ) ? $prod['colors'] : 'black,brown,green,orange,red,gray,yellow' );
+				update_post_meta( $post_id, '_ttq_colors', isset( $prod['colors'] ) ? $prod['colors'] : 'black,brown,green,orange,red,gray,yellow,blue,light_blue,lime_green,hot_pink' );
 				update_post_meta( $post_id, '_ttq_sizes', isset( $prod['sizes'] ) ? $prod['sizes'] : '4in,6in' );
 				update_post_meta( $post_id, '_ttq_image_url', $prod['image'] );
 			}
@@ -153,8 +153,8 @@ class TTQ_Admin {
 	public static function default_settings() {
 		return array(
 			'products' => array(
-				array( 'key' => 'tweezers_only', 'label' => 'Tick Tweezers Only', 'price' => '1.25', 'best_for' => 'Events, Giveaways, Large Distributions', 'image' => '', 'featured' => '', 'features' => 'Removes ticks safely|Precision stainless steel tips|Personalized with your logo', 'colors' => 'black,brown,green,orange,red,gray,yellow', 'sizes' => '4in,6in' ),
-				array( 'key' => 'complete_kit', 'label' => 'Complete Tick Kit', 'price' => '6.25', 'best_for' => 'Health Departments, Outdoor Organizations, Schools & Camps', 'image' => '', 'featured' => '1', 'features' => 'Tick removal tool included|Alcohol prep pad & ID card|Personalized with your logo', 'colors' => 'black,brown,green,orange,red,gray,yellow', 'sizes' => '4in,6in' ),
+				array( 'key' => 'tweezers_only', 'label' => 'Tick Tweezers Only', 'price' => '1.25', 'best_for' => 'Events, Giveaways, Large Distributions', 'image' => '', 'featured' => '', 'features' => 'Removes ticks safely|Precision stainless steel tips|Personalized with your logo', 'colors' => 'black,brown,green,orange,red,gray,yellow,blue,light_blue,lime_green,hot_pink', 'sizes' => '4in,6in' ),
+				array( 'key' => 'complete_kit', 'label' => 'Complete Tick Kit', 'price' => '6.25', 'best_for' => 'Health Departments, Outdoor Organizations, Schools & Camps', 'image' => '', 'featured' => '1', 'features' => 'Tick removal tool included|Alcohol prep pad & ID card|Personalized with your logo', 'colors' => 'black,brown,green,orange,red,gray,yellow,blue,light_blue,lime_green,hot_pink', 'sizes' => '4in,6in' ),
 			),
 			'colors'                     => array(
 				array( 'key' => 'black',     'label' => 'Black',      'hex' => '#000000' ),

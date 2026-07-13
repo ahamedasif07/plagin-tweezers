@@ -20,7 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<ul>
 				<li>Product: <?php echo esc_html( $product_label ); ?></li>
 				<li>Quantity: <?php echo esc_html( $submission['quantity'] ); ?></li>
-				<li>Colors: <?php echo esc_html( implode( ', ', $submission['colors'] ) ); ?></li>
+				<li>Colors: <?php 
+					$display_colors = $submission['colors'];
+					if ( ! empty( $submission['custom_color'] ) ) {
+						$display_colors[] = $submission['custom_color'] . ' (Custom)';
+					}
+					echo esc_html( implode( ', ', $display_colors ) ); 
+				?></li>
 				<li>Sizes: <?php echo esc_html( implode( ', ', $submission['sizes'] ) ); ?></li>
 				<li>Free Sample Requested: <?php echo esc_html( ucfirst( $submission['free_sample'] ) ); ?></li>
 			</ul>

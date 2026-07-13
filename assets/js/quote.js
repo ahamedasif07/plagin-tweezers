@@ -86,6 +86,7 @@
     logoToken: "",
     logoPreviewUrl: "",
     logoFileName: "",
+    custom_color: "",
   };
 
   /* ── Session persistence ────────────────────────────────────── */
@@ -141,6 +142,7 @@
 
     setVal("side1", state.side1);
     setVal("side2", state.side2);
+    setVal("custom_color", state.custom_color);
     updateCharCounters();
 
     setVal("organization", state.organization);
@@ -263,6 +265,7 @@
     state.address = (form.querySelector('[name="address"]') || {}).value || "";
     var freeEl = form.querySelector('input[name="free_sample"]:checked');
     state.free_sample = freeEl ? freeEl.value : "no";
+    state.custom_color = (form.querySelector('[name="custom_color"]') || {}).value || "";
   }
 
   /* ── Navigation ─────────────────────────────────────────────── */
@@ -480,6 +483,7 @@
             sizes: state.sizes,
             side1: state.side1,
             side2: state.side2,
+            custom_color: state.custom_color,
           },
           panel,
           function () {
@@ -744,14 +748,13 @@
         })
         .join(", ") || "—",
     );
-    setReview(
-      "colors",
-      state.colors
-        .map(function (c) {
-          return labelFor(TTQ_DATA.colors, c);
-        })
-        .join(", ") || "—",
-    );
+    var displayColors = state.colors.map(function (c) {
+      return labelFor(TTQ_DATA.colors, c);
+    });
+    if (state.custom_color) {
+      displayColors.push(state.custom_color + " (Custom)");
+    }
+    setReview("colors", displayColors.join(", ") || "—");
     setReview("side1", state.side1 || "—");
     setReview("side2", state.side2 || "—");
     setReview("name", state.name);
@@ -861,6 +864,7 @@
         sizes: state.sizes,
         side1: state.side1,
         side2: state.side2,
+        custom_color: state.custom_color,
       });
       appendGroup(body, "step3", {
         organization: state.organization,

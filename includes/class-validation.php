@@ -42,10 +42,12 @@ class TTQ_Validation {
 						$colors[] = sanitize_key( $c );
 					}
 				}
-				if ( empty( $colors ) ) {
-					$errors['colors'] = __( 'Please select at least one color.', 'ttq' );
+				$custom_color = isset( $raw['custom_color'] ) ? sanitize_text_field( wp_unslash( $raw['custom_color'] ) ) : '';
+				if ( empty( $colors ) && empty( $custom_color ) ) {
+					$errors['colors'] = __( 'Please select at least one color or type a custom color.', 'ttq' );
 				}
-				$data['colors'] = $colors;
+				$data['colors']       = $colors;
+				$data['custom_color'] = $custom_color;
 
 				$sizes = array();
 				if ( ! empty( $raw['sizes'] ) && is_array( $raw['sizes'] ) ) {

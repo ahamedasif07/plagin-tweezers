@@ -68,8 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="ttq-section-card__icon" aria-hidden="true">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 6H3"/><path d="M10 12H3"/><path d="M15 18H3"/></svg>
 		</span>
-		<span class="ttq-section-card__title"><?php esc_html_e( 'Select Tick Tweezers Size(s)', 'ttq' ); ?> <span class="req">*</span></span>
-		<span class="ttq-section-card__hint"><?php esc_html_e( 'Multiple sizes may be selected. Multiple Sizes Allowed.', 'ttq' ); ?></span>
+		<span class="ttq-section-card__title"><?php esc_html_e( 'Select Tick Tweezers Size(s). Multiple sizes may be selected. Multiple Sizes Allowed', 'ttq' ); ?> <span class="req">*</span></span>
 	</div>
 
 	<div class="ttq-size-grid ttq-size-grid--wide" role="group" aria-label="<?php esc_attr_e( 'Select sizes', 'ttq' ); ?>">
@@ -126,8 +125,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="ttq-hint"><?php printf( esc_html__( 'Accepted: %1$s — Max %2$sMB', 'ttq' ), esc_html( strtoupper( $settings['allowed_file_types'] ) ), esc_html( $settings['max_upload_mb'] ) ); ?></p>
 			<input type="file" id="ttq-logo-input" class="ttq-visually-hidden ttq-js-file-input" accept="<?php echo esc_attr( '.' . str_replace( ',', ',.', $settings['allowed_file_types'] ) ); ?>" />
 		</div>
-
-		<div class="ttq-uploader__progress ttq-js-upload-progress" hidden>
+<!-- progress bar -->
+		<!-- <div class="ttq-uploader__progress ttq-js-upload-progress" hidden>
 			<div class="ttq-uploader__progress-bar"><span class="ttq-js-progress-fill"></span></div>
 			<span class="ttq-js-progress-label">0%</span>
 		</div>
@@ -137,7 +136,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<span class="ttq-js-preview-name"></span>
 			<button type="button" class="ttq-link-btn ttq-js-upload-replace"><?php esc_html_e( 'Replace', 'ttq' ); ?></button>
 			<button type="button" class="ttq-link-btn ttq-link-btn--danger ttq-js-upload-remove"><?php esc_html_e( 'Remove', 'ttq' ); ?></button>
-		</div>
+		</div> -->
 	</div>
 	<div class="ttq-field-error" data-error-for="logo" role="alert"></div>
 	<input type="hidden" name="logo_token" class="ttq-js-logo-token" value="" />
