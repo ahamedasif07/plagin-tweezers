@@ -43,10 +43,10 @@ if (! defined('ABSPATH')) {
             <span class="ttq-rail__stepof">
                 <span class="ttq-rail__stepof-label"><?php esc_html_e('STEP', 'ttq'); ?></span>
                 <span class="ttq-rail__stepof-num ttq-js-rail-current">1</span>
-                <span class="ttq-rail__stepof-of ttq-js-rail-of"><?php esc_html_e('OF 3', 'ttq'); ?></span>
+                <span class="ttq-rail__stepof-of ttq-js-rail-of"><?php esc_html_e('OF 4', 'ttq'); ?></span>
             </span>
 
-            <!-- Three step dots with vertical connector line -->
+            <!-- Four step dots with vertical connector line -->
             <ol class="ttq-rail__dots" aria-label="<?php esc_attr_e('Steps', 'ttq'); ?>">
                 <li class="ttq-rail__dot is-current" data-step-index="1" title="<?php esc_attr_e('Product', 'ttq'); ?>">
                 </li>
@@ -54,6 +54,8 @@ if (! defined('ABSPATH')) {
                     title="<?php esc_attr_e('Customization', 'ttq'); ?>"></li>
                 <li class="ttq-rail__dot is-disabled" data-step-index="3"
                     title="<?php esc_attr_e('Contact', 'ttq'); ?>"></li>
+                <li class="ttq-rail__dot is-disabled" data-step-index="4"
+                    title="<?php esc_attr_e('Review & Submit', 'ttq'); ?>"></li>
             </ol>
 
             <!-- Tick bug decoration at bottom -->
@@ -94,28 +96,33 @@ if (! defined('ABSPATH')) {
                             </svg>
                         </button>
                         <span
-                            class="ttq-topbar__eyebrow ttq-js-step-eyebrow"><?php esc_html_e('Step 1 of 3', 'ttq'); ?></span>
+                            class="ttq-topbar__eyebrow ttq-js-step-eyebrow"><?php esc_html_e('Step 1 of 4', 'ttq'); ?></span>
                     </div>
                     <h2 class="ttq-topbar__heading ttq-js-step-heading">
                         <?php esc_html_e('Choose Your Product', 'ttq'); ?></h2>
                 </div>
 
-                <!-- Horizontal step progress tracker (1 → 2 → 3) -->
+                <!-- Horizontal step progress tracker (1 → 2 → 3 → 4) -->
                 <nav class="ttq-step-track" aria-label="<?php esc_attr_e('Progress', 'ttq'); ?>">
 
                     <div class="ttq-step-track__item is-active" data-track-step="1">
-                        <span class="ttq-step-track__bubble">1</span>
+                        <span class="ttq-step-track__bubble"><span class="ttq-step-num">1</span></span>
                         <span class="ttq-step-track__label"><?php esc_html_e('Product', 'ttq'); ?></span>
                     </div>
                     <div class="ttq-step-track__line"></div>
                     <div class="ttq-step-track__item" data-track-step="2">
-                        <span class="ttq-step-track__bubble">2</span>
+                        <span class="ttq-step-track__bubble"><span class="ttq-step-num">2</span></span>
                         <span class="ttq-step-track__label"><?php esc_html_e('Customization', 'ttq'); ?></span>
                     </div>
                     <div class="ttq-step-track__line"></div>
                     <div class="ttq-step-track__item" data-track-step="3">
-                        <span class="ttq-step-track__bubble">3</span>
-                        <span class="ttq-step-track__label"><?php esc_html_e('Review', 'ttq'); ?></span>
+                        <span class="ttq-step-track__bubble"><span class="ttq-step-num">3</span></span>
+                        <span class="ttq-step-track__label"><?php esc_html_e('Contact', 'ttq'); ?></span>
+                    </div>
+                    <div class="ttq-step-track__line"></div>
+                    <div class="ttq-step-track__item" data-track-step="4">
+                        <span class="ttq-step-track__bubble"><span class="ttq-step-num">4</span></span>
+                        <span class="ttq-step-track__label"><?php esc_html_e('Review & Submit', 'ttq'); ?></span>
                     </div>
                 </nav>
 
@@ -245,7 +252,7 @@ if (! defined('ABSPATH')) {
 
 <script>
 (function() {
-    var TOTAL_STEPS = 3; // Product, Customization, Contact — review panel (4) = 100%
+    var TOTAL_STEPS = 4; // Product, Customization, Contact, Review panel (4) = 100%
     var wizard = document.getElementById('ttq-wizard');
     if (!wizard) return;
 
@@ -263,9 +270,9 @@ if (! defined('ABSPATH')) {
         // Percentage reflects steps COMPLETED so far (step - 1),
         // so Step 1 itself shows 0% and only moves once you leave it.
         //   Step 1 (current)        -> 0%
-        //   Step 1 done, on Step 2  -> 33%
-        //   Step 2 done, on Step 3  -> 66%
-        //   Step 3 done / Review    -> 100%
+        //   Step 1 done, on Step 2  -> 25%
+        //   Step 2 done, on Step 3  -> 50%
+        //   Step 3 done, on Step 4  -> 75%
         var completed = Math.max(0, Math.min(step - 1, TOTAL_STEPS));
         var pct = Math.round((completed / TOTAL_STEPS) * 100);
 

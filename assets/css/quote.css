@@ -344,7 +344,7 @@
 }
 
 .ttq-topbar__heading {
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 800;
   margin: 0;
 }
@@ -414,17 +414,21 @@
 }
 
 .ttq-step-track__item.is-complete .ttq-step-track__bubble {
-  background: var(--ttq-red);
+  background: #16a34a;
   color: #fff;
-  border-color: var(--ttq-red);
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22,163,74,.18);
+  transition: all 0.3s ease;
 }
 
+
 .ttq-step-track__item.is-complete .ttq-step-track__label {
-  color: var(--ttq-red);
+  color: #16a34a;
+  font-weight: 700;
 }
 
 .ttq-step-track__line.is-complete {
-  background: var(--ttq-red);
+  background: #16a34a;
 }
 
 /* Trust badge */

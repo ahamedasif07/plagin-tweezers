@@ -44,28 +44,28 @@
   var STEP_META = [
     null, // 1-indexed
     {
-      eyebrow: "Step 1 of 3",
+      eyebrow: "Step 1 of 4",
       heading: "Choose Your Product",
       railNum: 1,
       trackActive: 1,
     },
     {
-      eyebrow: "Step 2 of 3",
+      eyebrow: "Step 2 of 4",
       heading: "Customize Your Specifications",
       railNum: 2,
       trackActive: 2,
     },
     {
-      eyebrow: "Step 3 of 3",
+      eyebrow: "Step 3 of 4",
       heading: "Contact Details",
       railNum: 3,
       trackActive: 3,
     },
     {
-      eyebrow: "Step 3 of 3",
-      heading: "Review Your Specifications",
-      railNum: 3,
-      trackActive: 3,
+      eyebrow: "Step 4 of 4",
+      heading: "Review & Submit",
+      railNum: 4,
+      trackActive: 4,
     },
   ];
 
@@ -286,15 +286,13 @@
       railCurrent.textContent = meta.railNum;
     }
 
-    // Sidebar dots — 3 dots representing steps 1-3
-    // Panel 4 (review) keeps dot 3 active
-    var dotStep = Math.min(currentStep, 3);
+    // Sidebar dots — 4 dots representing steps 1-4
     railDots.forEach(function (dot) {
       var idx = parseInt(dot.getAttribute("data-step-index"), 10);
       dot.classList.remove("is-current", "is-complete", "is-disabled");
-      if (idx < dotStep) {
+      if (idx < currentStep) {
         dot.classList.add("is-complete");
-      } else if (idx === dotStep) {
+      } else if (idx === currentStep) {
         dot.classList.add("is-current");
       } else {
         dot.classList.add("is-disabled");
@@ -309,10 +307,8 @@
       topbarHeading.textContent = meta.heading;
     }
 
-    // Step progress track (1 = Product, 2 = Customization, 3 = Review)
-    // Panel 4 corresponds to track step 3 (review)
-    var trackStep = currentStep === 4 ? 3 : currentStep;
-    updateTrack(trackStep);
+    // Step progress track — pass currentStep directly (1-4)
+    updateTrack(currentStep);
 
     // 100% Completed badge + trust badge toggle on review
     if (currentStep === 4) {
@@ -352,18 +348,20 @@
   }
 
   function updateTrack(activeTrackStep) {
+    // activeTrackStep == 5 means all steps done (submitted)
+    var allDone = activeTrackStep >= 5;
     trackItems.forEach(function (item) {
       var ts = parseInt(item.getAttribute("data-track-step"), 10);
       item.classList.remove("is-active", "is-complete");
-      if (ts < activeTrackStep) {
+      if (allDone || ts < activeTrackStep) {
         item.classList.add("is-complete");
       } else if (ts === activeTrackStep) {
         item.classList.add("is-active");
       }
     });
     trackLines.forEach(function (line, i) {
-      // i=0 connects step1→step2, i=1 connects step2→step3
-      line.classList.toggle("is-complete", i + 1 < activeTrackStep);
+      // i=0 connects step1→step2, i=1 connects step2→step3, i=2 connects step3→step4
+      line.classList.toggle("is-complete", allDone || i + 1 < activeTrackStep);
     });
   }
 
@@ -833,12 +831,23 @@
 
   wizard.addEventListener("click", function (e) {
     if (e.target.closest(".ttq-js-overlay-close")) {
+      var successPanel = wizard.querySelector(".ttq-js-overlay-success");
+      var isSuccess = successPanel && !successPanel.hidden;
+      
       hideOverlay();
+      
+      if (isSuccess) {
+        window.location.reload();
+      }
     }
 
     if (e.target.closest(".ttq-js-submit")) {
       readFormIntoState();
       showOverlay("submitting");
+      
+      // Set to 5 so the progress bar reaches 100% and all steps turn green
+      wizard.setAttribute("data-step", "5");
+      updateTrack(5);
 
       var body = new FormData();
       body.append("action", "ttq_submit_quote");
@@ -900,6 +909,7 @@
                 errMsgEl.textContent = message;
               }
               showOverlay("error");
+              wizard.setAttribute("data-step", "4");
               if (res.data && res.data.errors) {
                 showErrors(currentPanel(), res.data.errors);
               }
@@ -908,6 +918,7 @@
         })
         .catch(function () {
           showOverlay("error");
+          wizard.setAttribute("data-step", "4");
           var errMsgEl = wizard.querySelector(".ttq-js-overlay-error-message");
           if (errMsgEl) {
             errMsgEl.textContent = TTQ_DATA.i18n.genericError;
