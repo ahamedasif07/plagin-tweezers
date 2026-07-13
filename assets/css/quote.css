@@ -1586,7 +1586,7 @@
   font-size: 14px;
 }
 
-/* Tick spinner (submitting) */
+/* Tick spinner (submitting) — dots stay fixed, color chases around */
 .ttq-tick-spinner {
   position: relative;
   width: 120px;
@@ -1594,19 +1594,47 @@
   margin: 0 auto;
 }
 
-.ttq-tick-spinner__ring {
+.ttq-tick-spinner__dots {
   position: absolute;
   inset: 0;
-  animation: ttqSpin 1.4s linear infinite;
 }
 
-.ttq-tick-spinner__ring circle {
-  fill: none;
-  stroke: var(--ttq-red);
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-dasharray: 220 326;
-  opacity: 0.9;
+.ttq-tick-spinner__dots circle {
+  fill: #f7d6d9;
+  animation: ttqDotChase 1.6s linear infinite;
+}
+
+/* 16 dots, each fires the color pulse a bit later than the previous one */
+.ttq-tick-spinner__dots circle:nth-child(1)  { animation-delay: 0.000s; }
+.ttq-tick-spinner__dots circle:nth-child(2)  { animation-delay: 0.100s; }
+.ttq-tick-spinner__dots circle:nth-child(3)  { animation-delay: 0.200s; }
+.ttq-tick-spinner__dots circle:nth-child(4)  { animation-delay: 0.300s; }
+.ttq-tick-spinner__dots circle:nth-child(5)  { animation-delay: 0.400s; }
+.ttq-tick-spinner__dots circle:nth-child(6)  { animation-delay: 0.500s; }
+.ttq-tick-spinner__dots circle:nth-child(7)  { animation-delay: 0.600s; }
+.ttq-tick-spinner__dots circle:nth-child(8)  { animation-delay: 0.700s; }
+.ttq-tick-spinner__dots circle:nth-child(9)  { animation-delay: 0.800s; }
+.ttq-tick-spinner__dots circle:nth-child(10) { animation-delay: 0.900s; }
+.ttq-tick-spinner__dots circle:nth-child(11) { animation-delay: 1.000s; }
+.ttq-tick-spinner__dots circle:nth-child(12) { animation-delay: 1.100s; }
+.ttq-tick-spinner__dots circle:nth-child(13) { animation-delay: 1.200s; }
+.ttq-tick-spinner__dots circle:nth-child(14) { animation-delay: 1.300s; }
+.ttq-tick-spinner__dots circle:nth-child(15) { animation-delay: 1.400s; }
+.ttq-tick-spinner__dots circle:nth-child(16) { animation-delay: 1.500s; }
+
+@keyframes ttqDotChase {
+  0% {
+    fill: var(--ttq-red);
+  }
+  25% {
+    fill: #f0a3a3;
+  }
+  50% {
+    fill: #f7d6d9;
+  }
+  100% {
+    fill: #f7d6d9;
+  }
 }
 
 .ttq-tick-spinner__bug {
@@ -1627,12 +1655,6 @@
   stroke: var(--ttq-red);
   stroke-width: 2;
   stroke-linecap: round;
-}
-
-@keyframes ttqSpin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @keyframes ttqPulse {
@@ -1825,4 +1847,49 @@
   .ttq-review-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Custom color input */
+.ttq-custom-color-wrap {
+  margin-top: 14px;
+}
+
+.ttq-custom-color-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--ttq-gray-200);
+  border-radius: var(--ttq-radius-sm, 8px);
+  font-size: 14px;
+  color: var(--ttq-gray-900);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ttq-custom-color-input:focus {
+  border-color: var(--ttq-red);
+  box-shadow: 0 0 0 3px var(--ttq-red-glow);
+}
+
+/* Sample limit note below color swatches */
+.ttq-color-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ttq-gray-500, #6b7280);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Wide size chips */
+.ttq-size-grid--wide {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ttq-size-chip--wide {
+  min-width: 140px;
+  padding: 10px 20px;
+  flex: 1 1 140px;
 }

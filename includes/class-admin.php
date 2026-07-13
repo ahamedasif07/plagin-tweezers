@@ -157,13 +157,17 @@ class TTQ_Admin {
 				array( 'key' => 'complete_kit', 'label' => 'Complete Tick Kit', 'price' => '6.25', 'best_for' => 'Health Departments, Outdoor Organizations, Schools & Camps', 'image' => '', 'featured' => '1', 'features' => 'Tick removal tool included|Alcohol prep pad & ID card|Personalized with your logo', 'colors' => 'black,brown,green,orange,red,gray,yellow', 'sizes' => '4in,6in' ),
 			),
 			'colors'                     => array(
-				array( 'key' => 'black', 'label' => 'Black', 'hex' => '#000000' ),
-				array( 'key' => 'brown', 'label' => 'Brown', 'hex' => '#8a5a2c' ),
-				array( 'key' => 'green', 'label' => 'Green', 'hex' => '#2e7d32' ),
-				array( 'key' => 'orange', 'label' => 'Orange', 'hex' => '#f57c00' ),
-				array( 'key' => 'red', 'label' => 'Red', 'hex' => '#c62828' ),
-				array( 'key' => 'gray', 'label' => 'Gray', 'hex' => '#9e9e9e' ),
-				array( 'key' => 'yellow', 'label' => 'Yellow', 'hex' => '#fdd835' ),
+				array( 'key' => 'black',     'label' => 'Black',      'hex' => '#000000' ),
+				array( 'key' => 'brown',     'label' => 'Brown',      'hex' => '#8a5a2c' ),
+				array( 'key' => 'green',     'label' => 'Green',      'hex' => '#2e7d32' ),
+				array( 'key' => 'orange',    'label' => 'Orange',     'hex' => '#f57c00' ),
+				array( 'key' => 'red',       'label' => 'Red',        'hex' => '#c62828' ),
+				array( 'key' => 'gray',      'label' => 'Gray',       'hex' => '#9e9e9e' ),
+				array( 'key' => 'yellow',    'label' => 'Yellow',     'hex' => '#fdd835' ),
+				array( 'key' => 'blue',      'label' => 'Blue',       'hex' => '#1565c0' ),
+				array( 'key' => 'light_blue','label' => 'Light Blue', 'hex' => '#4fc3f7' ),
+				array( 'key' => 'lime_green','label' => 'Lime Green', 'hex' => '#76ff03' ),
+				array( 'key' => 'hot_pink',  'label' => 'Hot Pink',   'hex' => '#f50057' ),
 			),
 			'sizes'                      => array(
 				array( 'key' => '4in', 'label' => '4"' ),
@@ -181,8 +185,19 @@ class TTQ_Admin {
 	}
 
 	public static function get_settings() {
-		$saved = get_option( self::OPTION_KEY, array() );
-		return wp_parse_args( $saved, self::default_settings() );
+		$saved    = get_option( self::OPTION_KEY, array() );
+		$defaults = self::default_settings();
+		$settings = wp_parse_args( $saved, $defaults );
+
+		// Always merge in any new default colors that are not yet saved.
+		$saved_keys = array_column( isset( $saved['colors'] ) ? $saved['colors'] : array(), 'key' );
+		foreach ( $defaults['colors'] as $default_color ) {
+			if ( ! in_array( $default_color['key'], $saved_keys, true ) ) {
+				$settings['colors'][] = $default_color;
+			}
+		}
+
+		return $settings;
 	}
 
 	/**

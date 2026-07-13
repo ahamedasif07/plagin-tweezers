@@ -51,6 +51,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		<?php endforeach; ?>
 	</div>
+
+	<div class="ttq-custom-color-wrap">
+		<label class="ttq-field-label" for="ttq-custom-color"><?php esc_html_e( 'Other / Custom Color', 'ttq' ); ?> <span class="ttq-optional"><?php esc_html_e( 'Optional', 'ttq' ); ?></span></label>
+		<input type="text" id="ttq-custom-color" name="custom_color" class="ttq-input ttq-custom-color-input" placeholder="<?php esc_attr_e( 'e.g. Navy Blue, Forest Green, Maroon...', 'ttq' ); ?>" />
+	</div>
+
+	<p class="ttq-color-note"><?php esc_html_e( 'Sample requests are limited to 2 color options. When placing a full order, you may select more than 2 colors.', 'ttq' ); ?></p>
+
 	<div class="ttq-field-error" data-error-for="colors" role="alert"></div>
 </div>
 
@@ -60,12 +68,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="ttq-section-card__icon" aria-hidden="true">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 6H3"/><path d="M10 12H3"/><path d="M15 18H3"/></svg>
 		</span>
-		<span class="ttq-section-card__title"><?php esc_html_e( 'Select Size(s)', 'ttq' ); ?> <span class="req">*</span></span>
+		<span class="ttq-section-card__title"><?php esc_html_e( 'Select Tick Tweezers Size(s)', 'ttq' ); ?> <span class="req">*</span></span>
+		<span class="ttq-section-card__hint"><?php esc_html_e( 'Multiple sizes may be selected. Multiple Sizes Allowed.', 'ttq' ); ?></span>
 	</div>
 
-	<div class="ttq-size-grid" role="group" aria-label="<?php esc_attr_e( 'Select sizes', 'ttq' ); ?>">
+	<div class="ttq-size-grid ttq-size-grid--wide" role="group" aria-label="<?php esc_attr_e( 'Select sizes', 'ttq' ); ?>">
 		<?php foreach ( $settings['sizes'] as $size ) : ?>
-			<label class="ttq-size-chip">
+			<label class="ttq-size-chip ttq-size-chip--wide">
 				<input type="checkbox" name="sizes[]" value="<?php echo esc_attr( $size['key'] ); ?>" />
 				<span><?php echo esc_html( $size['label'] ); ?></span>
 			</label>
