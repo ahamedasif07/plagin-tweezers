@@ -840,7 +840,11 @@
       hideOverlay();
       
       if (isSuccess) {
-        window.location.reload();
+        if (TTQ_DATA.redirectUrl) {
+          window.location.href = TTQ_DATA.redirectUrl;
+        } else {
+          window.location.reload();
+        }
       }
     }
 
@@ -898,9 +902,36 @@
                 msgEl.textContent = res.data.message;
               }
               showOverlay("success");
+              
+              // Reset JS state silently in background
+              state.product = "";
+              state.quantity = TTQ_DATA.minQuantity || 25;
+              state.colors = [];
+              state.sizes = [];
+              state.side1 = "";
+              state.side2 = "";
+              state.organization = "";
+              state.name = "";
+              state.phone = "";
+              state.email = "";
+              state.free_sample = "no";
+              state.address = "";
+              state.logoToken = "";
+              state.logoPreviewUrl = "";
+              state.logoFileName = "";
+              state.custom_color = "";
+              
+              // Clear session storage so returning user gets fresh form
               try {
                 sessionStorage.removeItem(STORAGE_KEY);
               } catch (e) {}
+              
+              // Reset all form inputs in background (user stays on popup)
+              if (form) {
+                form.reset();
+              }
+              resetUpload();
+              updateCharCounters();
             } else {
               var errMsgEl = wizard.querySelector(
                 ".ttq-js-overlay-error-message",

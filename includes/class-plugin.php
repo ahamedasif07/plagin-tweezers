@@ -75,6 +75,7 @@ final class TTQ_Plugin {
 			array(
 				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 				'nonce'         => wp_create_nonce( 'ttq_quote_nonce' ),
+				'redirectUrl'   => home_url( '/quote-sample-submitted/' ),
 				'products'      => $products,
 				'colors'        => $settings['colors'],
 				'sizes'         => $settings['sizes'],
